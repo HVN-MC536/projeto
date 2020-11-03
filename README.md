@@ -1,4 +1,4 @@
-# projeto
+# projeto [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/HVN-MC536/projeto/HEAD)
 Projeto para trabalho final da disciplina Banco de Dados: Teoria e Prática da Unicamp
 
 ## Motivação
