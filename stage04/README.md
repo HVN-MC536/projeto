@@ -33,3 +33,10 @@ SUICÍDIOS(_pais_nome_, _pais_ano_, _idade_, _sexo_, suicidio_no, taxa_suicidio)
 ## Base de dados
 
 ## Arquivos de dados
+nome do arquivo | link | breve descrição
+----- | ----- | -----
+| tabela.csv | [Link](../stage03/data/rawtabela.csv) | Dataset original da fonte de dados. |
+| suicides.csv | [Link](../stage03/data/processed/suicides.csv) | Tabela normalizada com país, ano, sexo, número e taxa de suicídios. |
+| pais.csv | [Link](../stage03/data/processed/pais.csv) | Tabela normalizada com país, ano, população, PIB por ano e PIB per capita. |
+| generation.csv | [Link](../stage03/data/processed/generation.csv) | Tabela normalizada com geração e faixa etária. |
+| redessociais.csv | [Link](../stage04/data/processed/redessociais.csv | Tabela com dados compilados do números de usuários em diferentes redes sociais|
