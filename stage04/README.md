@@ -39,4 +39,4 @@ nome do arquivo | link | breve descrição
 | suicides.csv | [Link](../stage03/data/processed/suicides.csv) | Tabela normalizada com país, ano, sexo, número e taxa de suicídios. |
 | pais.csv | [Link](../stage03/data/processed/pais.csv) | Tabela normalizada com país, ano, população, PIB por ano e PIB per capita. |
 | generation.csv | [Link](../stage03/data/processed/generation.csv) | Tabela normalizada com geração e faixa etária. |
-| redessociais.csv | [Link](../stage04/data/processed/redessociais.csv | Tabela com dados compilados do números de usuários em diferentes redes sociais|
+| redessociais.csv | [Link](../stage04/data/processed/redessociais.csv) | Tabela com dados compilados do números de usuários em diferentes redes sociais|
