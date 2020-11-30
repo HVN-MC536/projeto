@@ -32,7 +32,7 @@ título da base | link | breve descrição
 
 nome do arquivo | link | breve descrição
 ----- | ----- | -----
-| tabela.csv | [Link](../stage03/data/rawtabela.csv) | Dataset original da fonte de dados. |
+| tabela.csv | [Link](../stage03/data/raw/tabela.csv) | Dataset original da fonte de dados. |
 | suicides.csv | [Link](../stage03/data/processed/suicides.csv) | Tabela normalizada com país, ano, sexo, número e taxa de suicídios. |
 | pais.csv | [Link](../stage03/data/processed/pais.csv) | Tabela normalizada com país, ano, população, PIB por ano e PIB per capita. |
 | generation.csv | [Link](../stage03/data/processed/generation.csv) | Tabela normalizada com geração e faixa etária. |
