@@ -29,6 +29,7 @@ SUICÍDIOS(_pais_nome_, _pais_ano_, _idade_, _sexo_, suicidio_no, taxa_suicidio)
 ## Conjunto de queries dos modelos
 
 [Conjunto de queries da etapa 3](../stage03/notebook)
+[Conjunto de queries da etapa 4](../stage04/notebook)
 
 ## Base de dados
 título da base | link | breve descrição
