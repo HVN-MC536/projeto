@@ -39,7 +39,24 @@ Usamos o Neo4J para queries das correlações. Separamos <HEIGON, CONTINUA POR F
 
 ## Evolução do projeto
 
-- Natan
+A primeira proposta do trabalho era relacionar as taxas de suicídios com os filmes, do qual fizemos, porém, estava planejado acrescentar uma outra relação com redes sociais. O objetivo era enxergar um aumento nas taxas de suicídio não só pelos filmes mas também pelo crescimento do uso das redes sociais após seu _boom_ na era dos _smartphones_, com intuito de observar nos dados conclusões bastante conhecidas pela ciência.
+
+As fontes de dados que conseguimos sobre redes sociais, mostrava um crescimento a cada ano do número de usuários, mas não tínhamos uma tabela que documentasse esses números. Então, criamos uma [tabela própria](data/not\ used/redessociais.csv) mas sem muito objetivo no contexto do trabalho.
+
+Após discussão com o professor, decidimos focar apenas na correlação com os filmes e apresentar os resultados, relacionando com o Efeito Werther.
+
+O modelo relacional não sofreu mudanças ao longo do semestre, continuamos com objetivo de relacionar os países e grupos de pessoas com as taxas de suicídio e conseguimos uma boa execução desde o começo, apesar dos valores duvidosos da fonte de dados. Já o modelo em grafo, sofreu diversas mudanças como mostram as figuras abaixo:
+
+### Modelo relacional:
+![relacional](assets/ModeloLógicoEtapa3Revisado.jpg)
+
+### Modelo antigo de grafo:
+![grafo-redes](assets/graph.png)
+
+### Modelo atualizado de grafo:
+![grafo-filmes](assets/GrafoCompletoEstrela.png)
+
+Como podemos perceber, o primeiro grafo não tem pouca informações e não tem relações significativas. Já o segundo, apesar de não ser homogêneo, nos dá muitas informações sobre popularidade dos filmes e, também, os países que sofreram com maiores taxas de suicídio.
 
 ## Resultados e discussão
 
