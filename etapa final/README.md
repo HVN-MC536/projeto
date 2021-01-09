@@ -3,6 +3,7 @@
 ## Projeto Mídias e Consequências psicológicas
 
 ## Equipe
+
 - Natan Rodrigues de Oliveira
 
 ## Slides de apresentação
@@ -55,4 +56,4 @@ Os slides usados na apresentação da Etapa Final podem ser vistos [aqui](slides
 
 ## Arquivos de dados
 
-- Rigatto: mesmo lugar do de cima.
+- Rigatto: mesmo lugar do de cima
