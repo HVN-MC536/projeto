@@ -47,13 +47,16 @@ Após discussão com o professor, decidimos focar apenas na correlação com os 
 
 O modelo relacional não sofreu mudanças ao longo do semestre, continuamos com objetivo de relacionar os países e grupos de pessoas com as taxas de suicídio e conseguimos uma boa execução desde o começo, apesar dos valores duvidosos da fonte de dados. Já o modelo em grafo, sofreu diversas mudanças como mostram as figuras abaixo:
 
-### Modelo relacional:
+### Modelo relacional
+
 ![relacional](assets/ModeloLógicoEtapa3Revisado.jpg)
 
-### Modelo antigo de grafo:
+### Modelo antigo de grafo
+
 ![grafo-redes](assets/graph.png)
 
-### Modelo atualizado de grafo:
+### Modelo atualizado de grafo
+
 ![grafo-filmes](assets/GrafoCompletoEstrela.png)
 
 Como podemos perceber, o primeiro grafo não tem pouca informações e não tem relações significativas. Já o segundo, apesar de não ser homogêneo, nos dá muitas informações sobre popularidade dos filmes e, também, os países que sofreram com maiores taxas de suicídio.
