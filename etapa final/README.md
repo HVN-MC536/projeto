@@ -75,7 +75,18 @@ Como podemos perceber, o primeiro grafo não tem pouca informações e não tem 
 
 ## Modelos lógicos finais
 
+### Queries do modelo relacional
+
 - Natan e Heigon
+
+```
+PAIS(_país_, _ano_, PIB per capita, PIB anual, população)
+GERAÇÃO(_idade_, geração)
+SUICÍDIOS(_pais_, _ano_, _idade_, _sexo_, numero de suicídios, taxa de suicídios)
+    _pais_ chave estrangeira -> PAIS(_país_)
+    _ano_ chave estrangeira -> PAIS(_ano_)
+    _idade_ chave estrangeira -> GERAÇÃO(_idade_)
+```
 
 ## Programa de extração e conversão de dados
 
@@ -84,6 +95,194 @@ Como podemos perceber, o primeiro grafo não tem pouca informações e não tem 
 ## Conjunto de queries para todos os modelos
 
 - Natan e Heigon (fica mais direto)
+
+### Queries do modelo relacional
+
+- Qual país teve maior taxa de suicídio em 2010?
+
+```sql
+DROP VIEW CMT IF EXISTS;
+DROP VIEW PYT IF EXISTS;
+
+CREATE VIEW PYT AS SELECT country, year, taxa_suicidio
+    FROM Suicidios
+    WHERE year = 2010
+    GROUP BY country, year, taxa_suicidio;
+ 
+CREATE VIEW CMT AS SELECT country, MAX(taxa_suicidio) taxa
+    FROM PYT
+    GROUP BY country;
+
+SELECT country
+    FROM (SELECT MAX(taxa) maior FROM CMT) AUX, CMT
+    WHERE CMT.taxa = AUX.maior;
+```
+
+- Qual sexo tem a maior taxa de sucidios entre 25 e 34 anos em 2010?
+
+```sql
+DROP VIEW ST IF EXISTS;
+
+CREATE VIEW ST AS SELECT sex, MAX(taxa_suicidio) AS taxa
+        FROM Suicidios
+        WHERE age = '25-34 years' AND year = 2010
+        GROUP BY sex;
+
+SELECT ST.sex 
+    FROM (SELECT MAX(taxa) maxima FROM ST) AS MAIOR, ST
+    WHERE ST.taxa = MAIOR.maxima;
+```
+
+- Qual o PIB per capita do país com mais suicídios entre pessoas de 25 e 34 anos?
+
+```sql
+DROP VIEW MY IF EXISTS;
+DROP VIEW T1 IF EXISTS;
+DROP VIEW CSS IF EXISTS;
+DROP VIEW CAS IF EXISTS;
+
+CREATE VIEW CAS AS SELECT country, age, suicidio
+    FROM Suicidios
+    WHERE age = '25-34 years'
+    GROUP BY country, year, age, sex;
+
+
+CREATE VIEW CSS AS SELECT country, SUM(suicidio) soma 
+    FROM CAS 
+    GROUP BY country 
+    ORDER BY soma DESC;
+
+CREATE VIEW T1 AS SELECT TOP 1 country, soma FROM CSS;
+
+CREATE VIEW MY AS SELECT MAX(year) AS y
+    FROM Pais
+    WHERE country = 'Russian Federation';
+
+SELECT P.gdp_per_capita
+    FROM T1, MY, Pais P
+    WHERE 'Russian Federation' = P.country AND P.year = MY.y;
+```
+
+- Qual o PIB per capita do país com a menor taxa de suicídio entre os mais idosos(75+ anos) em 2015?
+
+```sql
+DROP VIEW MenoresTaxasEm2015 IF EXISTS;
+
+CREATE VIEW MenoresTaxasEm2015 AS SELECT country, AVG(taxa_suicidio) media
+FROM Suicidios
+WHERE age = '75+ years' AND year = 2015
+GROUP BY country, year
+HAVING media > 0
+ORDER BY media;
+
+SELECT TOP 1 country FROM MenoresTaxasEm2015;
+```
+
+```sql
+SELECT gdp_per_capita
+FROM Pais
+WHERE country = 'Turkmenistan' AND year = 2015
+```
+
+- Qual a variação, em porcentagem, do índice de suicídios do ano 2010 em relação ao ano 2007 no Brasil?
+
+```sql
+DROP VIEW IF EXISTS SuicideNoBr2007;
+DROP VIEW IF EXISTS SuicideNoBr2010;
+
+CREATE VIEW SuicideNoBr2007 AS
+SELECT CAST(SUM(S.suicidio) AS DOUBLE) suicidio
+FROM Suicidios S
+WHERE S.country = 'Brazil' AND S.year = 2007 AND S.age = '25-34 years';
+
+CREATE VIEW SuicideNoBr2010 AS
+SELECT CAST(SUM(S.suicidio) AS DOUBLE) suicidio
+FROM Suicidios S
+WHERE S.country = 'Brazil' AND S.year = 2010 AND S.age = '25-34 years';
+
+SELECT ( ( (S10.suicidio/S07.suicidio) - 1)*100) 
+FROM SuicideNoBr2007 S07, SuicideNoBr2010 S10;
+```
+
+### Queries para neo4j
+
+Nesta seção, levantamos algumas queries para relacionar com alguns filmes renomados do IMBd.
+
+- EUA
+
+```sql
+SELECT AVG(taxa_suicidio)
+FROM Suicidios
+WHERE country = 'United States' AND year >= 1985 AND year < 1995
+GROUP BY country;
+
+SELECT AVG(taxa_suicidio)
+FROM Suicidios 
+WHERE country = 'United States' AND year >= 1995 AND year < 2005
+GROUP BY country;
+
+SELECT AVG(taxa_suicidio)
+FROM Suicidios
+WHERE country = 'United States' AND year >= 2005 AND year <= 2015
+GROUP BY country;
+```
+
+- France
+
+```sql
+SELECT AVG(taxa_suicidio)
+FROM Suicidios
+WHERE country = 'France' AND year >= 1985 AND year < 1995
+GROUP BY country;
+
+SELECT AVG(taxa_suicidio)
+FROM Suicidios 
+WHERE country = 'France' AND year >= 1995 AND year < 2005
+GROUP BY country;
+
+SELECT AVG(taxa_suicidio)
+FROM Suicidios
+WHERE country = 'France' AND year >= 2005 AND year < 2015
+GROUP BY country;
+```
+
+- Brasil
+
+```sql
+SELECT AVG(taxa_suicidio)
+FROM Suicidios
+WHERE country = 'Brazil' AND year >= 1985 AND year < 1995
+GROUP BY country;
+
+SELECT AVG(taxa_suicidio)
+FROM Suicidios 
+WHERE country = 'Brazil' AND year >= 1995 AND year < 2005
+GROUP BY country;
+
+SELECT AVG(taxa_suicidio)
+FROM Suicidios
+WHERE country = 'Brazil' AND year >= 2005 AND year <= 2015
+GROUP BY country;
+```
+
+### Maiores taxas entre gerações 
+
+```sql
+DROP VIEW MaioresTaxas IF EXISTS;
+DROP VIEW MediaDosAnos IF EXISTS;
+
+CREATE VIEW MediaDosAnos AS SELECT country, age, AVG(taxa_suicidio) media_taxa
+FROM Suicidios
+GROUP BY country, age
+HAVING media_taxa > 0;
+
+CREATE VIEW MaioresTaxas AS SELECT country, age, MAX(media_taxa)
+FROM MediaDosAnos
+GROUP BY country, age;
+
+SELECT COUNT(age) FROM MaioresTaxas;
+SELECT COUNT(age) FROM MaioresTaxas WHERE age = '15-24 years';
+```
 
 ## Base de dados
 
