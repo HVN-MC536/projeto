@@ -105,7 +105,7 @@ A partir desses resultados é possível criar correlações das taxas de suícid
 
 ## Modelo Conceitual final
 
-![Modelo](assets/ModeloLógicoEtapa3Revisado)
+![Modelo](assets/ModeloLógicoEtapa3Revisado.jpg)
 
 ## Modelos lógicos finais
 
