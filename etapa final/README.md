@@ -1,11 +1,12 @@
 # Etapa Final
 
-## Projeto Mídias e Consequências psicológicas
+## Projeto Mídias e Consequências Psicológicas
 
 ## Equipe
 
 - Natan Rodrigues de Oliveira
 - Heigon Alafaire Soldera Pires
+- Victor Rigatto
 
 ## Slides de apresentação
 
@@ -13,11 +14,23 @@ Os slides usados na apresentação da Etapa Final podem ser vistos [aqui](slides
 
 ## Resumo do projeto
 
-- Rigatto
+De maneira resumida, inicialmente encontramos um tema motivador e importante para realizar as atividades do projeto. Essas atividades constituiram a elaboração de um primeiro modelo conceitual e a pesquisa de fontes de dados que fossem compatíveis com os temas que escolhemos, levando-se em conta os requisitos técnicos que aprendemos ao longo da disciplina, como o formato dos dados e os métodos para obtê-los.
+
+Posteriormente, processamos e normalizamos os dados brutos obtidos das fontes selecionadas, de forma que ficassem mais compatíveis para serem relacionados com base às indagações que definimos a partir dos temas que escolhemos. Esse processo foi continuamente aprimorado conforme o desenvolvimento dos estágios e o aprendizado da matéria, pelos quais aprimoramos o modelo conceitual, nossas indagações e o processamento dos dados.
+
+Dessa forma, então, utilizamos diferentes métodos e conhecimentos da disciplina de Bancos de Dados para relacionar os dados e entender e visualizar as nossas indagações.
 
 ## Motivação e Contexto
 
-- Rigatto
+O tema da depressão é sempre muito importante, e tem ganhado cada vez mais espaço em debates sobre a saúde mental nos tempos atuais, uma vez que há sempre mais indícios de que os mais jovens têm sofrido mais com doenças dessa natureza do que em outras épocas.
+
+Dessa forma, nossa indagação abrange o impacto de uma tecnologia contemporânea, as mídias digitais e redes sociais, quando o tema é a depressão e o suicído.
+
+A partir de dados disponíveis na internet, como da OMS e CDC (EUA), podemos identificar um aumento perceptível da incidência de lesão auto infligida, por faixa etária, especialmente a partir do ano de 2009, quando ocorreu a popularização de redes sociais em dispositivos móveis. 
+
+Indagamos, também, sobre possíveis relações das taxas de suicídio com o Efeito Werther, conhecido como o suicídio “copiado”, onde pode-se observar aumentos de taxas de suicídio após a divulgação de um suicídio em mídias, como as mencionadas anteriormente.
+
+Assim, nos sentimos motivados a utilizar e relacionar esses dados e esses temas. Nota-se que o objetivo do projeto não é efetivamente provar as indagações aqui levantadas, mas utilizar desses temas para adquirir na teoria e na prática os conhecimentos de Bancos de Dados.
 
 ## Detalhamento do projeto
 
@@ -72,7 +85,7 @@ Como podemos perceber, o primeiro grafo tem pouca informações e não tem rela�
 
 ## Modelo Conceitual final
 
-- Rigatto: pegar a imagem em assets
+![Modelo](assets/ModeloLógicoEtapa3Revisado)
 
 ## Modelos lógicos finais
 
@@ -91,7 +104,7 @@ SUICÍDIOS(_pais_, _ano_, _idade_, _sexo_, numero de suicídios, taxa de suicíd
 
 ## Programa de extração e conversão de dados
 
-- Rigatto: o programa está em src
+[Programas de extração e conversão](src)
 
 ## Conjunto de queries para todos os modelos
 
@@ -468,9 +481,18 @@ return n,y,p,c,g
 ```
 
 ## Base de dados
-
-- Rigatto: copiar da etapa 4 ou 3 (nao lembro onde está)
+título da base | link | breve descrição
+----- | ----- | -----
+| Suicide Rates Overview | [Link](https://www.kaggle.com/russellyates88/suicide-rates-overview-1985-to-2016) | Dataset em formato CSV com estatísticas de suicídio organizadas por anos (1985 a 2016), países, sexo, faixas etárias e índices de desenvolvimento sócioeconômicos. |
+| Number of monthly active Facebook users | [Link](https://www.statista.com/statistics/264810/number-of-monthly-active-facebook-users-worldwide/) | Número de usuários do Facebook a cada mês de 2008 a 2020 |
+| Number of monthly active international users | [Link](https://www.statista.com/statistics/274565/monthly-active-international-twitter-users/) | Número de usuários do Twitter a cada mês de 2009 a 2019|
 
 ## Arquivos de dados
-
-- Rigatto: mesmo lugar do de cima
+nome do arquivo | link | breve descrição
+----- | ----- | -----
+| tabela.csv | [Link](data/raw/tabela.csv) | Dataset original da fonte de dados. |
+| suicides.csv | [Link](data/processed/suicides.csv) | Tabela normalizada com país, ano, sexo, número e taxa de suicídios. |
+| pais.csv | [Link](data/processed/pais.csv) | Tabela normalizada com país, ano, população, PIB por ano e PIB per capita. |
+| generation.csv | [Link](data/processed/generation.csv) | Tabela normalizada com geração e faixa etária. |
+| movies.csv | [Link](data/processed/movies.csv) | Tabela normalizada com geração e faixa etária. |
+| redessociais.csv | [Link](data/not used/redessociais.csv) | Tabela com dados compilados do números de usuários em diferentes redes sociais|
