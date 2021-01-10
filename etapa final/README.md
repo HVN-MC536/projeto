@@ -77,7 +77,27 @@ Como podemos perceber, o primeiro grafo tem pouca informações e não tem rela�
 
 ## Resultados e discussão
 
-- Heigon
+### Filmes relacionados ao tema suicídio lançados em cada período
+
+|             |     Brasil    |        França       |             EUA             |
+|:-----------:|:-------------:|:-------------------:|:---------------------------:|
+| 1985 a 1995 | Alma corsária |    Jovem Werther    | Sociedade dos Poetas Mortos |
+| 1995 a 2005 |               | Love me if you dare |    Réquiem para um Sonho    |
+| 2005 a 2015 |               |                     |      7 vidas ; A Estrada      |
+
+Todas as imagens utilizadas para construir a tabela estão disponíveis [aqui](assets/Imagens%20para%20an%C3%A1lise%20visual%20de%20cada%20per%C3%ADodo)
+
+### Média da taxa de suicídio em cada país dentro de cada período
+
+|             | Brasil | França |  EUA  |
+|:-----------:|:------:|:------:|:-----:|
+| 1985 a 1995 |  5,46  |  26,43 | 15,36 |
+| 1995 a 2005 |  5,92  |  21,16 | 12,92 |
+| 2005 a 2015 |  6,07  |  17,43 | 13,34 |
+
+Na primeira tabela podemos verificar filmes encontrados a partir da análise visual de cada grupo formado no grafo. No Brasil encontramos o filme "Alma corsária" no qual existe o tema suícidio, porém a pessoa foi salva, nesse mesmo período o Brasil teve a menor taxa de suícido. No período de maior taxa de suícidio da França foi encontrado o filme "Jovem Werther", que trata sobre o suicídio de um adolescente, no peŕiodo de segunda maior taxa foi encontrado o filme que trata sobre o suicídio mútuo de um casal, no  período onde não foi encontrado um filme com tema tão sensível a França teve a menor taxa. Em relação aos Estados Unidos no período de maior taxa foi encontrado o filme "Sociedade dos Poetas Mortos" o qual possui um suícidio explicíto e é extremamente popular, no próximo período há uma razoável queda na taxa e não são encontrados filmes com suícidio, "Réquiem para um Sonho" trata de temas sensíveis e depressão, pórem o tema suicídio não é tratado, após esse período há um aumento nas taxas de suicídio e também são encontrados filmes que demonstram suicídio, porém possui popularidade média.
+
+A partir desses resultados é possível criar correlações das taxas de suícidios, filmes com o tema e sua popularidade, corroborando com a hipótese do Efeito Werther existir. É necessário um estudo maior no assunto para realizar afirmações, considerando outras áreas da ciência, como psicologia, e direcionar estudos sobre como os fimes trataram o assunto e também considerar o caminho inverso, mais filmes com este tema podem ter sido feitos nesses períodos por o país estar passando por um período de baixa saúde mental por algum outro motivo.
 
 ## Conclusões
 
