@@ -111,9 +111,9 @@ Para inferir que, de fato, as mídias digitais têm esse efeito nos jovens é ne
 
 ## Modelos lógicos finais
 
-### Queries do modelo relacional
+![Grafo](assets/ModeloLógicoFinalGrafo.png)
 
-- Natan e Heigon
+### Queries do modelo relacional
 
 ```
 PAIS(_país_, _ano_, PIB per capita, PIB anual, população)
