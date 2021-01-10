@@ -101,7 +101,9 @@ A partir desses resultados é possível criar correlações das taxas de suícid
 
 ## Conclusões
 
-- Natan
+O efeito Werther refere-se a suicídios causados por suicídio amplamente divulgado. Neste caso, os suicídios ou temas extramamente delicados abordados em obras artísticas podem levar jovens a se suicidarem após ter contato com essas. Nos dias atuais, a juventude consome muita mídia digital e redes sociais, que podem ter um impacto negativo caso a relação do jovem com o meio digital não for saudável. Foi o que ocorreu há pouco tempo com a famosa série da Netflix, Thirteen Reasons Why, onde a personagem principal se suicida e, consequentemente, pesquisas relacionadas ao assunto aumentou muito no Google.
+
+Para inferir que, de fato, as mídias digitais têm esse efeito nos jovens é necessário mais fontes de dados para uma pesquisa mais completa. Infelizmente ficamos limitados com as fontes usadas aqui, porém os resultados desta rápida pesquia indicam que o Efeito Werther nas mídias digitais pode ser real.
 
 ## Modelo Conceitual final
 
