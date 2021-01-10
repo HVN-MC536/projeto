@@ -490,9 +490,9 @@ título da base | link | breve descrição
 ## Arquivos de dados
 nome do arquivo | link | breve descrição
 ----- | ----- | -----
-| tabela.csv | [Link](data/raw/tabela.csv) | Dataset original da fonte de dados. |
+| tabela.csv | [Link](data/raw/tabela.csv) | Dataset original da fonte de dados Suicide Rates Overview. |
 | suicides.csv | [Link](data/processed/suicides.csv) | Tabela normalizada com país, ano, sexo, número e taxa de suicídios. |
 | pais.csv | [Link](data/processed/pais.csv) | Tabela normalizada com país, ano, população, PIB por ano e PIB per capita. |
 | generation.csv | [Link](data/processed/generation.csv) | Tabela normalizada com geração e faixa etária. |
-| movies.csv | [Link](data/processed/movies.csv) | Tabela normalizada com geração e faixa etária. |
-| redessociais.csv | [Link](data/not used/redessociais.csv) | Tabela com dados compilados do números de usuários em diferentes redes sociais|
+| movies.csv | [Link](data/processed/movies.csv) | Tabela de filmes IMDb com título, ano, gênero, país e votos. |
+| redessociais.csv | [Link](data/not\ used/redessociais.csv) | Tabela com dados compilados do números de usuários em diferentes redes sociais. |
