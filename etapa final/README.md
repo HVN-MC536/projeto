@@ -59,7 +59,7 @@ O modelo relacional não sofreu mudanças ao longo do semestre, continuamos com 
 
 ![grafo-filmes](assets/GrafoCompletoEstrela.png)
 
-Como podemos perceber, o primeiro grafo não tem pouca informações e não tem relações significativas. Já o segundo, apesar de não ser homogêneo, nos dá muitas informações sobre popularidade dos filmes e, também, os países que sofreram com maiores taxas de suicídio.
+Como podemos perceber, o primeiro grafo tem pouca informações e não tem relações significativas. Já o segundo, apesar de não ser homogêneo, nos dá muitas informações sobre popularidade dos filmes e, também, os países que sofreram com maiores taxas de suicídio.
 
 ## Resultados e discussão
 
@@ -282,6 +282,185 @@ GROUP BY country, age;
 
 SELECT COUNT(age) FROM MaioresTaxas;
 SELECT COUNT(age) FROM MaioresTaxas WHERE age = '15-24 years';
+```
+
+### Importando o CSV com todos os filmes
+
+```cypher
+LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/heigon77/testebinder/main/movies.csv' AS line
+CREATE (:All {title: line.original_title, votes: line.votes, country : line.country, year : line.year, genre : line.genre})
+```
+
+### Selecionando apenas Estados Unidos, Brasil e França
+
+```cypher
+MATCH (n)
+WHERE n.country = "USA" OR n.country = "Brazil" OR n.country = "France"
+CREATE (:Movie {title: n.title, votes: n.votes, country : n.country, year : n.year, genre : n.genre})
+
+MATCH (n:All) 
+DELETE n
+```
+
+### Selecionando o intervalo dos anos que temos dados sobre o índice de suicidio
+
+```cypher
+MATCH (n)
+WHERE  TOINTEGER(n.year) < 1985 OR TOINTEGER(n.year) > 2015
+DELETE n
+```
+
+### Selecionando os genêros Drama e Comédia
+
+```cypher
+MATCH (n)
+WHERE n.genre <> "Comedy" AND n.genre <> "Drama"
+DELETE n
+```
+### Selecionando filmes muito populares ou pouco populares
+
+```cypher
+MATCH (n)
+WHERE TOINTEGER(n.votes) > 200 AND TOINTEGER(n.votes) < 200000 
+DELETE n
+
+MATCH (n)
+WHERE TOINTEGER(n.votes) > 300000 AND TOINTEGER(n.votes) < 400000 
+DELETE n
+```
+### Criando nós para os atributos dos filmes
+
+```cypher
+CREATE (:Genre {name : "Drama"})
+CREATE (:Genre {name : "Comedy"})
+
+CREATE (:Country {name : "USA"})
+CREATE (:Country {name : "Brazil"})
+CREATE (:Country {name : "France"})
+
+CREATE (:Year {range : "1985 a 1995"})
+CREATE (:Year {range : "1995 a 2005"})
+CREATE (:Year {range : "2005 a 2015"})
+
+CREATE (:Popularity {name : "Alta"})
+CREATE (:Popularity {name : "Media"})
+CREATE (:Popularity {name : "Baixa"})
+```
+### Ligando cada filme com seu atributo respectivo
+
+```cypher
+MATCH (m:Movie)
+MATCH (g:Genre)
+WHERE m.genre = g.name
+CREATE (m)-[:InGenre]->(g)
+
+MATCH (m:Movie)
+MATCH (c:Country)
+WHERE m.country = c.name
+CREATE (m)-[:Nationality]->(c)
+
+MATCH (m:Movie)
+MATCH (y:Year)
+WHERE TOINTEGER(m.year) >=1985 AND TOINTEGER(m.year) < 1995 AND y.range = "1985 a 1995"
+CREATE (m)-[:YearRangeIs]->(y)
+
+MATCH (m:Movie)
+MATCH (y:Year)
+WHERE TOINTEGER(m.year) >=1995 AND TOINTEGER(m.year) < 2005 AND y.range = "1995 a 2005"
+CREATE (m)-[:YearRangeIs]->(y)
+
+MATCH (m:Movie)
+MATCH (y:Year)
+WHERE TOINTEGER(m.year) >=2005 AND TOINTEGER(m.year) <= 2015 AND y.range = "2005 a 2015"
+CREATE (m)-[:YearRangeIs]->(y)
+
+MATCH (m:Movie)
+MATCH (p:Popularity)
+WHERE TOINTEGER(m.votes) < 200000 AND p.name = "Baixa"
+CREATE (m)-[:PopularityIs]->(p)
+
+MATCH (m:Movie)
+MATCH (p:Popularity)
+WHERE TOINTEGER(m.votes) >=200000 AND TOINTEGER(m.votes) < 400000 AND p.name = "Media"
+CREATE (m)-[:PopularityIs]->(p)
+
+MATCH (m:Movie)
+MATCH (p:Popularity)
+WHERE TOINTEGER(m.votes) >=400000 AND p.name = "Alta"
+CREATE (m)-[:PopularityIs]->(p)
+```
+
+### Selecionando filmes americanos dentro de cada periódo para análise visual
+
+```cypher
+MATCH (n)-[:YearRangeIs]->(y:Year)
+MATCH (n)-[:PopularityIs]->(p:Popularity)
+MATCH (n)-[:Nationality]->(c:Country)
+MATCH (n)-[:InGenre]->(g:Genre)
+WHERE y.range = "2005 a 2015" AND p.name = "Alta" AND c.name = "USA"
+RETURN n,y,p,c,g
+
+MATCH (n)-[:YearRangeIs]->(y:Year)
+MATCH (n)-[:PopularityIs]->(p:Popularity)
+MATCH (n)-[:Nationality]->(c:Country)
+MATCH (n)-[:InGenre]->(g:Genre)
+WHERE y.range = "1995 a 2005" AND p.name = "Alta" AND c.name = "USA"
+RETURN n,y,p,c,g
+
+MATCH (n)-[:YearRangeIs]->(y:Year)
+MATCH (n)-[:PopularityIs]->(p:Popularity)
+MATCH (n)-[:Nationality]->(c:Country)
+MATCH (n)-[:InGenre]->(g:Genre)
+WHERE y.range = "1985 a 1995" AND p.name = "Alta" AND c.name = "USA"
+RETURN n,y,p,c,g
+```
+### Selecionando filmes franceses dentro de cada periódo para análise visual
+
+```cypher
+MATCH (n)-[:YearRangeIs]->(y:Year)
+MATCH (n)-[:PopularityIs]->(p:Popularity)
+MATCH (n)-[:Nationality]->(c:Country)
+MATCH (n)-[:InGenre]->(g:Genre)
+WHERE y.range = "2005 a 2015" AND p.name = "Baixa" AND c.name = "France"
+return n,y,p,c,g
+
+MATCH (n)-[:YearRangeIs]->(y:Year)
+MATCH (n)-[:PopularityIs]->(p:Popularity)
+MATCH (n)-[:Nationality]->(c:Country)
+MATCH (n)-[:InGenre]->(g:Genre)
+WHERE y.range = "1995 a 2005" AND p.name = "Baixa" AND c.name = "France"
+return n,y,p,c,g
+
+MATCH (n)-[:YearRangeIs]->(y:Year)
+MATCH (n)-[:PopularityIs]->(p:Popularity)
+MATCH (n)-[:Nationality]->(c:Country)
+MATCH (n)-[:InGenre]->(g:Genre)
+WHERE y.range = "1985 a 1995" AND p.name = "Baixa" AND c.name = "France"
+return n,y,p,c,g
+```
+### Selecionando filmes franceses dentro de cada periódo para análise visual
+
+```cypher
+MATCH (n)-[:YearRangeIs]->(y:Year)
+MATCH (n)-[:PopularityIs]->(p:Popularity)
+MATCH (n)-[:Nationality]->(c:Country)
+MATCH (n)-[:InGenre]->(g:Genre)
+WHERE y.range = "2005 a 2015" AND p.name = "Baixa" AND c.name = "Brazil"
+return n,y,p,c,g
+
+MATCH (n)-[:YearRangeIs]->(y:Year)
+MATCH (n)-[:PopularityIs]->(p:Popularity)
+MATCH (n)-[:Nationality]->(c:Country)
+MATCH (n)-[:InGenre]->(g:Genre)
+WHERE y.range = "1995 a 2005" AND p.name = "Baixa" AND c.name = "Brazil"
+return n,y,p,c,g
+
+MATCH (n)-[:YearRangeIs]->(y:Year)
+MATCH (n)-[:PopularityIs]->(p:Popularity)
+MATCH (n)-[:Nationality]->(c:Country)
+MATCH (n)-[:InGenre]->(g:Genre)
+WHERE y.range = "1985 a 1995" AND p.name = "Baixa" AND c.name = "Brazil"
+return n,y,p,c,g
 ```
 
 ## Base de dados
