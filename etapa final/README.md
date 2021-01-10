@@ -94,8 +94,6 @@ SUICÍDIOS(_pais_, _ano_, _idade_, _sexo_, numero de suicídios, taxa de suicíd
 
 ## Conjunto de queries para todos os modelos
 
-- Natan e Heigon (fica mais direto)
-
 ### Queries do modelo relacional
 
 - Qual país teve maior taxa de suicídio em 2010?
@@ -284,14 +282,16 @@ SELECT COUNT(age) FROM MaioresTaxas;
 SELECT COUNT(age) FROM MaioresTaxas WHERE age = '15-24 years';
 ```
 
-### Importando o CSV com todos os filmes
+### Queries do modelo de grafos
+
+- Importando o CSV com todos os filmes
 
 ```cypher
 LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/heigon77/testebinder/main/movies.csv' AS line
 CREATE (:All {title: line.original_title, votes: line.votes, country : line.country, year : line.year, genre : line.genre})
 ```
 
-### Selecionando apenas Estados Unidos, Brasil e França
+- Selecionando apenas Estados Unidos, Brasil e França
 
 ```cypher
 MATCH (n)
@@ -302,7 +302,7 @@ MATCH (n:All)
 DELETE n
 ```
 
-### Selecionando o intervalo dos anos que temos dados sobre o índice de suicidio
+- Selecionando o intervalo dos anos que temos dados sobre o índice de suicidio
 
 ```cypher
 MATCH (n)
@@ -310,14 +310,15 @@ WHERE  TOINTEGER(n.year) < 1985 OR TOINTEGER(n.year) > 2015
 DELETE n
 ```
 
-### Selecionando os genêros Drama e Comédia
+- Selecionando os genêros Drama e Comédia
 
 ```cypher
 MATCH (n)
 WHERE n.genre <> "Comedy" AND n.genre <> "Drama"
 DELETE n
 ```
-### Selecionando filmes muito populares ou pouco populares
+
+- Selecionando filmes muito populares ou pouco populares
 
 ```cypher
 MATCH (n)
@@ -328,7 +329,8 @@ MATCH (n)
 WHERE TOINTEGER(n.votes) > 300000 AND TOINTEGER(n.votes) < 400000 
 DELETE n
 ```
-### Criando nós para os atributos dos filmes
+
+- Criando nós para os atributos dos filmes
 
 ```cypher
 CREATE (:Genre {name : "Drama"})
@@ -346,7 +348,8 @@ CREATE (:Popularity {name : "Alta"})
 CREATE (:Popularity {name : "Media"})
 CREATE (:Popularity {name : "Baixa"})
 ```
-### Ligando cada filme com seu atributo respectivo
+
+- Ligando cada filme com seu atributo respectivo
 
 ```cypher
 MATCH (m:Movie)
@@ -390,7 +393,7 @@ WHERE TOINTEGER(m.votes) >=400000 AND p.name = "Alta"
 CREATE (m)-[:PopularityIs]->(p)
 ```
 
-### Selecionando filmes americanos dentro de cada periódo para análise visual
+- Selecionando filmes americanos dentro de cada periódo para análise visual
 
 ```cypher
 MATCH (n)-[:YearRangeIs]->(y:Year)
@@ -414,7 +417,7 @@ MATCH (n)-[:InGenre]->(g:Genre)
 WHERE y.range = "1985 a 1995" AND p.name = "Alta" AND c.name = "USA"
 RETURN n,y,p,c,g
 ```
-### Selecionando filmes franceses dentro de cada periódo para análise visual
+- Selecionando filmes franceses dentro de cada periódo para análise visual
 
 ```cypher
 MATCH (n)-[:YearRangeIs]->(y:Year)
@@ -438,7 +441,7 @@ MATCH (n)-[:InGenre]->(g:Genre)
 WHERE y.range = "1985 a 1995" AND p.name = "Baixa" AND c.name = "France"
 return n,y,p,c,g
 ```
-### Selecionando filmes franceses dentro de cada periódo para análise visual
+- Selecionando filmes franceses dentro de cada periódo para análise visual
 
 ```cypher
 MATCH (n)-[:YearRangeIs]->(y:Year)
