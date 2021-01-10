@@ -5,6 +5,7 @@
 ## Equipe
 
 - Natan Rodrigues de Oliveira
+- Heigon Alafaire Soldera Pires
 
 ## Slides de apresentação
 
